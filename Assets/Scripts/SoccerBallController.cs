@@ -23,6 +23,11 @@ public class SoccerBallController : MonoBehaviour
         DrawBallPosition();
     }
 
+    public void OnGoal()
+    {
+        ResetPosition();
+    }
+
     void ResetPosition()
     {
         Rigidbody rb = GetComponent<Rigidbody>();

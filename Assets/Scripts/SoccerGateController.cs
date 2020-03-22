@@ -15,6 +15,10 @@ public class SoccerGateController : MonoBehaviour
     {
         if (other.gameObject.tag == "Ball") {
             goalEvent.Invoke(gateColor);
+
+            var ball = other.gameObject.GetComponent<SoccerBallController>();
+
+            ball.OnGoal();
         }
     }
 

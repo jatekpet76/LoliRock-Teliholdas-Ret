@@ -7,14 +7,30 @@ public class SoccerGameController : MonoBehaviour
 {
     public Text redScoreText;
     public Text blueScoreText;
+    public GameObject goalCanvas;
 
     int _redScore = 0;
     int _blueScore = 0;
 
+    float _showGoalCanvas = -1;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(CheckGoal());
+    }
+
+    IEnumerator CheckGoal()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1);
+
+            if (_showGoalCanvas < Time.time && goalCanvas.activeSelf)
+            {
+                goalCanvas.SetActive(false);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -25,16 +41,19 @@ public class SoccerGameController : MonoBehaviour
 
     public void OnGoal(GateColor gateColor)
     {
-        if (gateColor == GateColor.RED)
-        {
-            _redScore++;
+        goalCanvas.SetActive(true);
+        _showGoalCanvas = Time.time + 5;
 
-            redScoreText.text = _redScore.ToString();
-        } else
+        if (gateColor == GateColor.RED)
         {
             _blueScore++;
 
             blueScoreText.text = _blueScore.ToString();
+        } else
+        {
+            _redScore++;
+
+            redScoreText.text = _redScore.ToString();
         }
 
         Debug.Log("GOALLLL!!!!! " + gateColor);
