@@ -8,6 +8,7 @@ public class SoccerGameController : MonoBehaviour
     public Text redScoreText;
     public Text blueScoreText;
     public GameObject goalCanvas;
+    AudioSource _audioSource;
 
     int _redScore = 0;
     int _blueScore = 0;
@@ -17,6 +18,8 @@ public class SoccerGameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
+
         StartCoroutine(CheckGoal());
     }
 
@@ -41,22 +44,42 @@ public class SoccerGameController : MonoBehaviour
 
     public void OnGoal(GateColor gateColor)
     {
+        PlayGoalMusic();
+
         goalCanvas.SetActive(true);
         _showGoalCanvas = Time.time + 5;
 
+        SetScore(gateColor);
+
+        Debug.Log("GOALLLL!!!!! " + gateColor);
+    }
+
+    void SetScore(GateColor gateColor)
+    {
         if (gateColor == GateColor.RED)
         {
             _blueScore++;
 
             blueScoreText.text = _blueScore.ToString();
-        } else
+        }
+        else
         {
             _redScore++;
 
             redScoreText.text = _redScore.ToString();
         }
+    }
 
-        Debug.Log("GOALLLL!!!!! " + gateColor);
+    void PlayGoalMusic()
+    {
+        PlaySoundInterval(_audioSource, 1, 6);
+    }
+
+    void PlaySoundInterval(AudioSource audioSource, float fromSeconds, float toSeconds)
+    {
+        audioSource.time = fromSeconds;
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + (toSeconds - fromSeconds));
     }
 
 }
