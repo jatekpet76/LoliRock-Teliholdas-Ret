@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class SoccerGateController : MonoBehaviour
 {
     public GoalEvent goalEvent;
-    public int gatePos = 0;
+    public GateColor gateColor = GateColor.RED;
 
     void Start() { }
     void Update() { }
@@ -14,7 +14,7 @@ public class SoccerGateController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Ball") {
-            goalEvent.Invoke(gatePos);
+            goalEvent.Invoke(gateColor);
         }
     }
 
@@ -24,4 +24,4 @@ public class SoccerGateController : MonoBehaviour
 }
 
 [System.Serializable]
-public class GoalEvent : UnityEvent<int> { }
+public class GoalEvent : UnityEvent<GateColor> { }

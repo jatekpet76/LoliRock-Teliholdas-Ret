@@ -38,8 +38,8 @@ public class SoccerPlayerController : MonoBehaviour
         }
     }
 
-    public void OnGoal(int gatePos)
+    public void OnGoal(GateColor gateColor)
     {
-        Debug.Log("GOALLLL!!!!! " + gatePos);
+        Debug.Log("GOALLLL!!!!! " + gateColor);
     }
 }
