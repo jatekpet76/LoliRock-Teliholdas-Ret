@@ -14,6 +14,8 @@ public class EnemyTeamController : MonoBehaviour
     GameObject _enemyGate;
     GameObject _playerGate;
 
+    public float pingDuration = 2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,7 +42,7 @@ public class EnemyTeamController : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(pingDuration);
 
             foreach (var enemy in _enemies)
             {
